@@ -75,7 +75,8 @@ class BouncerServiceProvider extends ServiceProvider
      */
     protected function registerMorphs()
     {
-        Models::updateMorphMap();
+        // Rinvex - Disable this feature
+        // Models::updateMorphMap();
     }
 
     /**
