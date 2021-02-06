@@ -192,7 +192,9 @@ class Models
         } elseif (isset(static::$ownership['*'])) {
             $attribute = static::$ownership['*'];
         } else {
-            $attribute = strtolower(static::basename($authority)).'_id';
+            // Rinvex
+            $attribute = strtolower(static::basename($authority));
+            //$attribute = strtolower(static::basename($authority)).'_id';
         }
 
         return static::isOwnedVia($attribute, $authority, $model);
@@ -212,7 +214,9 @@ class Models
             return $attribute($model, $authority);
         }
 
-        return $authority->getKey() == $model->{$attribute};
+        // Rinvex
+        return $authority->getMorphClass() === $model->{$attribute.'_type'} && $authority->getKey() === $model->{$attribute.'_id'};
+        // return $authority->getKey() == $model->{$attribute};
     }
 
     /**
