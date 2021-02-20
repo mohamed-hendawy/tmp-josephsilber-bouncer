@@ -9,7 +9,6 @@ use Silber\Bouncer\Console\CleanCommand;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class BouncerServiceProvider extends ServiceProvider

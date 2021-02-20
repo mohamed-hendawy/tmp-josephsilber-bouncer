@@ -2,9 +2,6 @@
 
 namespace Silber\Bouncer\Conductors;
 
-use Silber\Bouncer\Database\Models;
-use Illuminate\Database\Eloquent\Model;
-
 class GivesAbilities
 {
     use Concerns\AssociatesAbilities;

@@ -10,7 +10,6 @@ use Silber\Bouncer\Database\Queries\Roles as RolesQuery;
 
 use App\User;
 use Illuminate\Support\Arr;
-use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 

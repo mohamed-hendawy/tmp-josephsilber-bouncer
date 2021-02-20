@@ -2,13 +2,10 @@
 
 namespace Silber\Bouncer;
 
-use Silber\Bouncer\Database\Models;
-use Silber\Bouncer\Database\Queries\Abilities;
-
 use InvalidArgumentException;
-use Illuminate\Support\Collection;
+use Silber\Bouncer\Database\Models;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Access\Gate;
+use Silber\Bouncer\Database\Queries\Abilities;
 
 abstract class BaseClipboard implements Contracts\Clipboard
 {
