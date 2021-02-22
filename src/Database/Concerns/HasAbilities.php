@@ -8,6 +8,7 @@ use Silber\Bouncer\Helpers;
 use Silber\Bouncer\Database\Models;
 use Silber\Bouncer\Database\Ability;
 use Silber\Bouncer\Contracts\Clipboard;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Conductors\GivesAbilities;
 use Silber\Bouncer\Conductors\ForbidsAbilities;
 use Silber\Bouncer\Conductors\RemovesAbilities;
@@ -26,6 +27,28 @@ trait HasAbilities
             if (! Helpers::isSoftDeleting($model)) {
                 $model->abilities()->detach();
             }
+        });
+    }
+
+    /**
+     * Attach the given abilities to the model.
+     *
+     * @param mixed $abilities
+     *
+     * @return void
+     */
+    public function setAbilitiesAttribute($abilities): void
+    {
+        static::saved(function (self $model) use ($abilities) {
+            $abilities = collect($abilities)->filter();
+
+            (! in_array(LogsActivity::class,class_uses_recursive($model)) || $model->abilities->pluck('id')->similar($abilities))
+            || activity()
+                ->performedOn($model)
+                ->withProperties(['attributes' => ['abilities' => $abilities], 'old' => ['abilities' => $model->abilities->pluck('id')->toArray()]])
+                ->log('updated');
+
+            $model->abilities()->sync($abilities, true);
         });
     }
 

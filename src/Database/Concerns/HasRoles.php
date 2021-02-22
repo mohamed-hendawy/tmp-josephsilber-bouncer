@@ -10,6 +10,7 @@ use Silber\Bouncer\Database\Models;
 use Silber\Bouncer\Contracts\Clipboard;
 use Silber\Bouncer\Conductors\AssignsRoles;
 use Silber\Bouncer\Conductors\RemovesRoles;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Database\Queries\Roles as RolesQuery;
 
 trait HasRoles
@@ -25,6 +26,28 @@ trait HasRoles
             if (! Helpers::isSoftDeleting($model)) {
                 $model->roles()->detach();
             }
+        });
+    }
+
+    /**
+     * Attach the given roles to the model.
+     *
+     * @param mixed $roles
+     *
+     * @return void
+     */
+    public function setRolesAttribute($roles): void
+    {
+        static::saved(function (self $model) use ($roles) {
+            $roles = collect($roles)->filter();
+
+            (! in_array(LogsActivity::class,class_uses_recursive($model)) || $model->roles->pluck('id')->similar($roles))
+            || activity()
+                ->performedOn($model)
+                ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
+                ->log('updated');
+
+            $model->roles()->sync($roles, true);
         });
     }
 
