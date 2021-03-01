@@ -3,9 +3,11 @@
 namespace Silber\Bouncer\Database\Concerns;
 
 use App\User;
+use Silber\Bouncer\Helpers;
 use Silber\Bouncer\Database\Role;
 use Silber\Bouncer\Database\Models;
 use Silber\Bouncer\Constraints\Group;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Silber\Bouncer\Constraints\constrainer;
 use Silber\Bouncer\Database\Titles\AbilityTitle;
 use Silber\Bouncer\Database\Scope\TenantScope;
@@ -28,6 +30,28 @@ trait IsAbility
             if (is_null($ability->title)) {
                 $ability->title = AbilityTitle::from($ability)->toString();
             }
+        });
+    }
+
+    /**
+     * Attach the given roles to the model.
+     *
+     * @param mixed $roles
+     *
+     * @return void
+     */
+    public function setRolesAttribute($roles): void
+    {
+        static::saved(function (self $model) use ($roles) {
+            $roles = collect($roles)->filter();
+
+            (! in_array(LogsActivity::class,class_uses_recursive($model)) || $model->roles->pluck('id')->similar($roles))
+            || activity()
+                ->performedOn($model)
+                ->withProperties(['attributes' => ['roles' => $roles], 'old' => ['roles' => $model->roles->pluck('id')->toArray()]])
+                ->log('updated');
+
+            $model->roles()->sync($roles, true);
         });
     }
 
