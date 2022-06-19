@@ -15,7 +15,7 @@ class ForbidTest extends BaseTestCase
      */
     function an_allowed_simple_ability_is_not_granted_when_forbidden($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->to('edit-site');
         $bouncer->forbid($user)->to('edit-site');
@@ -33,7 +33,7 @@ class ForbidTest extends BaseTestCase
      */
     function an_allowed_model_ability_is_not_granted_when_forbidden($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->to('delete', $user);
         $bouncer->forbid($user)->to('delete', $user);
@@ -51,7 +51,7 @@ class ForbidTest extends BaseTestCase
      */
     function an_allowed_model_class_ability_is_not_granted_when_forbidden($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->to('delete', User::class);
         $bouncer->forbid($user)->to('delete', User::class);
@@ -69,7 +69,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_a_single_model_forbids_even_with_allowed_model_class_ability($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->to('delete', User::class);
         $bouncer->forbid($user)->to('delete', $user);
@@ -87,7 +87,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_a_single_model_does_not_forbid_other_models($provider)
     {
-        list($bouncer, $user1, $user2) = $provider(2);
+        [$bouncer, $user1, $user2] = $provider(2);
 
         $bouncer->allow($user1)->to('delete', User::class);
         $bouncer->forbid($user1)->to('delete', $user2);
@@ -101,7 +101,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_a_model_class_forbids_individual_models($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->to('delete', $user);
         $bouncer->forbid($user)->to('delete', User::class);
@@ -119,7 +119,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_an_ability_through_a_role($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->forbid('admin')->to('delete', User::class);
         $bouncer->allow($user)->to('delete', User::class);
@@ -145,7 +145,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_an_ability_allowed_through_a_role($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow('admin')->to('delete', User::class);
         $bouncer->forbid($user)->to('delete', User::class);
@@ -161,7 +161,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_an_ability_when_everything_is_allowed($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->everything();
         $bouncer->forbid($user)->toManage(User::class);
@@ -176,7 +176,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbid_an_ability_on_everything($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->everything();
         $bouncer->forbid($user)->to('delete')->everything();
@@ -192,7 +192,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_and_unforbidding_an_ability_for_everyone($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->allow($user)->everything();
         $bouncer->forbidEveryone()->to('delete', Account::class);
@@ -211,7 +211,7 @@ class ForbidTest extends BaseTestCase
      */
     function forbidding_an_ability_stops_all_further_checks($provider)
     {
-        list($bouncer, $user) = $provider();
+        [$bouncer, $user] = $provider();
 
         $bouncer->define('sleep', function () {
             return true;
@@ -220,6 +220,8 @@ class ForbidTest extends BaseTestCase
         $this->assertTrue($bouncer->can('sleep'));
 
         $bouncer->forbid($user)->to('sleep');
+
+        $bouncer->runBeforePolicies();
 
         $this->assertTrue($bouncer->cannot('sleep'));
     }
