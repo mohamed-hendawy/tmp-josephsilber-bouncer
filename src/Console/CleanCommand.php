@@ -86,7 +86,7 @@ class CleanCommand extends Command
      */
     protected function getUnassignedAbilitiesQuery()
     {
-        $model = Models::ability();
+        $model = app('cortex.auth.ability');
 
         return $model->whereNotIn($model->getKeyName(), function ($query) {
             $query->from(config('cortex.auth.tables.permissions'))->select('ability_id');
@@ -160,7 +160,7 @@ class CleanCommand extends Command
     {
         $table = $this->abilitiesTable();
 
-        return Models::ability()
+        return app('cortex.auth.ability')
                      ->whereNotNull("{$table}.entity_id")
                      ->where("{$table}.entity_type", '!=', '*');
     }
@@ -172,7 +172,7 @@ class CleanCommand extends Command
      */
     protected function abilitiesTable()
     {
-        return Models::ability()->getTable();
+        return app('cortex.auth.ability')->getTable();
     }
 
     /**

@@ -72,7 +72,7 @@ trait FindsAndCreatesAbilities
     {
         $groups = Helpers::groupModelsAndIdentifiersByType($abilities);
 
-        $keyName = Models::ability()->getKeyName();
+        $keyName = app('cortex.auth.ability')->getKeyName();
 
         $groups['strings'] = $this->abilitiesByName($groups['strings'], $attributes)
                                   ->pluck($keyName)->all();
@@ -132,7 +132,7 @@ trait FindsAndCreatesAbilities
     {
         $onlyOwned = isset($attributes['only_owned']) ? $attributes['only_owned'] : false;
 
-        $query = Models::ability()
+        $query = app('cortex.auth.ability')
                      ->where('name', $ability)
                      ->forModel($entity, true)
                      ->where('only_owned', $onlyOwned);
@@ -150,7 +150,7 @@ trait FindsAndCreatesAbilities
      */
     protected function createAbility($ability, $entity, $attributes)
     {
-        return Models::ability()->createForModel($entity, $attributes + [
+        return app('cortex.auth.ability')->createForModel($entity, $attributes + [
             'name' => $ability,
         ]);
     }
@@ -198,7 +198,7 @@ trait FindsAndCreatesAbilities
             return new Collection;
         }
 
-        $existing = Models::ability()->simpleAbility()->whereIn('name', $abilities)->get();
+        $existing = app('cortex.auth.ability')->simpleAbility()->whereIn('name', $abilities)->get();
 
         return $existing->merge($this->createMissingAbilities(
             $existing, $abilities, $attributes
@@ -218,7 +218,7 @@ trait FindsAndCreatesAbilities
         $missing = array_diff($abilities, $existing->pluck('name')->all());
 
         return array_map(function ($ability) use ($attributes) {
-            return Models::ability()->create($attributes + ['name' => $ability]);
+            return app('cortex.auth.ability')->create($attributes + ['name' => $ability]);
         }, $missing);
     }
 }

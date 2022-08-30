@@ -40,7 +40,7 @@ class SyncsRolesAndAbilities
     public function roles($roles)
     {
         $this->sync(
-            Models::role()->getRoleKeys($roles),
+            app('cortex.auth.role')->getRoleKeys($roles),
             $this->authority->roles()
         );
     }
@@ -101,7 +101,7 @@ class SyncsRolesAndAbilities
     protected function getAuthority()
     {
         if (is_string($this->authority)) {
-            $this->authority = Models::role()->firstOrCreate([
+            $this->authority = app('cortex.auth.role')->firstOrCreate([
                 'name' => $this->authority
             ]);
         }
@@ -116,7 +116,7 @@ class SyncsRolesAndAbilities
      */
     protected function getAbilitiesQualifiedKeyName()
     {
-        $model = Models::ability();
+        $model = app('cortex.auth.ability');
 
         return $model->getTable().'.'.$model->getKeyName();
     }

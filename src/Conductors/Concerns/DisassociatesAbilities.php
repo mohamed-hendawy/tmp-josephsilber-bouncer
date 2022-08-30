@@ -120,7 +120,7 @@ trait DisassociatesAbilities
             return $this->authority;
         }
 
-        return Models::role()->where('name', $this->authority)->firstOrFail();
+        return app('cortex.auth.role')->where('name', $this->authority)->firstOrFail();
     }
 
     /**

@@ -190,28 +190,6 @@ class Models
     }
 
     /**
-     * Get an instance of the ability model.
-     *
-     * @param  array  $attributes
-     * @return \Silber\Bouncer\Database\Ability
-     */
-    public static function ability(array $attributes = [])
-    {
-        return static::make(Ability::class, $attributes);
-    }
-
-    /**
-     * Get an instance of the role model.
-     *
-     * @param  array  $attributes
-     * @return \Silber\Bouncer\Database\Role
-     */
-    public static function role(array $attributes = [])
-    {
-        return static::make(Role::class, $attributes);
-    }
-
-    /**
      * Get an instance of the user model.
      *
      * @param  array  $attributes

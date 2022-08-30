@@ -36,7 +36,7 @@ class AssignsRoles
     {
         $authorities = is_array($authority) ? $authority : [$authority];
 
-        $roles = Models::role()->findOrCreateRoles($this->roles);
+        $roles = app('cortex.auth.role')->findOrCreateRoles($this->roles);
 
         foreach (Helpers::mapAuthorityByClass($authorities) as $class => $ids) {
             $this->assignRoles($roles, $class, new Collection($ids));

@@ -44,7 +44,7 @@ trait AssociatesAbilities
             return $this->authority;
         }
 
-        return Models::role()->firstOrCreate(['name' => $this->authority]);
+        return app('cortex.auth.role')->firstOrCreate(['name' => $this->authority]);
     }
 
     /**

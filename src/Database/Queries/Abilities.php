@@ -18,7 +18,7 @@ class Abilities
      */
     public static function forAuthority(Model $authority, $allowed = true)
     {
-        return Models::ability()->where(function ($query) use ($authority, $allowed) {
+        return app('cortex.auth.ability')->where(function ($query) use ($authority, $allowed) {
             $query->whereExists(static::getRoleConstraint($authority, $allowed));
             $query->orWhereExists(static::getAuthorityConstraint($authority, $allowed));
             $query->orWhereExists(static::getEveryoneConstraint($allowed));
@@ -54,7 +54,7 @@ class Abilities
                   ->join($permissions, $roles.'.id', '=', $permissions.'.entity_id')
                   ->whereColumn("{$permissions}.ability_id", "{$abilities}.id")
                   ->where($permissions.".forbidden", ! $allowed)
-                  ->where($permissions.".entity_type", Models::role()->getMorphClass());
+                  ->where($permissions.".entity_type", app('cortex.auth.role')->getMorphClass());
 
             Models::scope()->applyToModelQuery($query, $roles);
             Models::scope()->applyToRelationQuery($query, $permissions);

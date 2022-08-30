@@ -77,8 +77,8 @@ abstract class BaseClipboard implements Contracts\Clipboard
     public function getRolesLookup(Model $authority)
     {
         $roles = $authority->roles()->get([
-            'name', Models::role()->getQualifiedKeyName()
-        ])->pluck('name', Models::role()->getKeyName());
+            'name', app('cortex.auth.role')->getQualifiedKeyName()
+        ])->pluck('name', app('cortex.auth.role')->getKeyName());
 
         return ['ids' => $roles, 'names' => $roles->flip()];
     }

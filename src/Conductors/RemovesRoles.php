@@ -75,9 +75,9 @@ class RemovesRoles
      */
     protected function getRoleIdsFromNames(array $names)
     {
-        $key = Models::role()->getKeyName();
+        $key = app('cortex.auth.role')->getKeyName();
 
-        return Models::role()
+        return app('cortex.auth.role')
                      ->whereIn('name', $names)
                      ->get([$key])
                      ->pluck($key);

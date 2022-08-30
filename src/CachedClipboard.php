@@ -294,11 +294,11 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
      */
     protected function refreshAllIteratively()
     {
-        foreach (Models::user()->all() as $user) {
+        foreach (app('cortex.auth.user')->all() as $user) {
             $this->refreshFor($user);
         }
 
-        foreach (Models::role()->all() as $role) {
+        foreach (app('cortex.auth.role')->all() as $role) {
             $this->refreshFor($role);
         }
     }
@@ -340,7 +340,7 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
      */
     protected function deserializeAbilities(array $abilities)
     {
-        return Models::ability()->hydrate($abilities);
+        return app('cortex.auth.ability')->hydrate($abilities);
     }
 
     /**
