@@ -31,7 +31,7 @@ class Role extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $this->table = Models::table('roles');
+        $this->table = config('cortex.auth.tables.roles');
 
         parent::__construct($attributes);
     }

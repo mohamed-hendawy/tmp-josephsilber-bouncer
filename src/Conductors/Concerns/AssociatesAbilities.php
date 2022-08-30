@@ -62,7 +62,7 @@ trait AssociatesAbilities
 
         $relation = $authority->abilities();
 
-        $table = Models::table('abilities');
+        $table = config('cortex.auth.tables.abilities');
 
         $relation->whereIn("{$table}.id", $abilityIds)
                  ->wherePivot('forbidden', '=', $this->forbidding);

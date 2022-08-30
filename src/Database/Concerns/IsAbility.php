@@ -176,7 +176,7 @@ trait IsAbility
         $relation = $this->morphedByMany(
             Models::classname(Role::class),
             'entity',
-            Models::table('permissions')
+            config('cortex.auth.tables.permissions')
         )->withPivot('forbidden', 'scope');
 
         return Models::scope()->applyToRelation($relation);
@@ -192,7 +192,7 @@ trait IsAbility
         $relation = $this->morphedByMany(
             Models::classname(User::class),
             'entity',
-            Models::table('permissions')
+            config('cortex.auth.tables.permissions')
         )->withPivot('forbidden', 'scope');
 
         return Models::scope()->applyToRelation($relation);

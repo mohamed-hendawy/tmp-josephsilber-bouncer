@@ -49,7 +49,7 @@ trait IsRole
         $relation = $this->morphedByMany(
             Models::classname(User::class),
             'entity',
-            Models::table('assigned_roles')
+            config('cortex.auth.tables.assigned_roles')
         )->withPivot('scope');
 
         return Models::scope()->applyToRelation($relation);
@@ -66,7 +66,7 @@ trait IsRole
     {
         list($model, $keys) = Helpers::extractModelAndKeys($model, $keys);
 
-        $query = $this->newBaseQueryBuilder()->from(Models::table('assigned_roles'));
+        $query = $this->newBaseQueryBuilder()->from(config('cortex.auth.tables.assigned_roles'));
 
         $query->insert($this->createAssignRecords($model, $keys));
 
@@ -192,7 +192,7 @@ trait IsRole
         list($model, $keys) = Helpers::extractModelAndKeys($model, $keys);
 
         $query = $this->newBaseQueryBuilder()
-            ->from(Models::table('assigned_roles'))
+            ->from(config('cortex.auth.tables.assigned_roles'))
             ->where('role_id', $this->getKey())
             ->where('entity_type', $model->getMorphClass())
             ->whereIn('entity_id', $keys);

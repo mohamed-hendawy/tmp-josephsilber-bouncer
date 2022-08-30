@@ -20,7 +20,7 @@ class AbilitiesForModel
      */
     public function __construct()
     {
-        $this->table = Models::table('abilities');
+        $this->table = config('cortex.auth.tables.abilities');
     }
 
     /**

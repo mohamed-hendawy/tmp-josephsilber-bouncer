@@ -46,9 +46,9 @@ class Abilities
     protected static function getRoleConstraint(Model $authority, $allowed)
     {
         return function ($query) use ($authority, $allowed) {
-            $permissions = Models::table('permissions');
-            $abilities   = Models::table('abilities');
-            $roles       = Models::table('roles');
+            $permissions = config('cortex.auth.tables.permissions');
+            $abilities   = config('cortex.auth.tables.abilities');
+            $roles       = config('cortex.auth.tables.roles');
 
             $query->from($roles)
                   ->join($permissions, $roles.'.id', '=', $permissions.'.entity_id')
@@ -74,8 +74,8 @@ class Abilities
     protected static function getAuthorityRoleConstraint(Model $authority)
     {
         return function ($query) use ($authority) {
-            $pivot  = Models::table('assigned_roles');
-            $roles  = Models::table('roles');
+            $pivot  = config('cortex.auth.tables.assigned_roles');
+            $roles  = config('cortex.auth.tables.roles');
             $table  = $authority->getTable();
 
             $query->from($table)
@@ -99,8 +99,8 @@ class Abilities
     protected static function getAuthorityConstraint(Model $authority, $allowed)
     {
         return function ($query) use ($authority, $allowed) {
-            $permissions = Models::table('permissions');
-            $abilities   = Models::table('abilities');
+            $permissions = config('cortex.auth.tables.permissions');
+            $abilities   = config('cortex.auth.tables.abilities');
             $table       = $authority->getTable();
 
             $query->from($table)
@@ -124,8 +124,8 @@ class Abilities
     protected static function getEveryoneConstraint($allowed)
     {
         return function ($query) use ($allowed) {
-            $permissions = Models::table('permissions');
-            $abilities   = Models::table('abilities');
+            $permissions = config('cortex.auth.tables.permissions');
+            $abilities   = config('cortex.auth.tables.abilities');
 
             $query->from($permissions)
                   ->whereColumn("{$permissions}.ability_id", "{$abilities}.id")

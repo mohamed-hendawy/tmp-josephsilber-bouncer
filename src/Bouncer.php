@@ -519,19 +519,6 @@ class Bouncer
     }
 
     /**
-     * Set custom table names.
-     *
-     * @param  array  $map
-     * @return $this
-     */
-    public function tables(array $map)
-    {
-        Models::setTables($map);
-
-        return $this;
-    }
-
-    /**
      * Get the model scoping instance.
      *
      * @param  \Silber\Bouncer\Contracts\Scope|null  $scope

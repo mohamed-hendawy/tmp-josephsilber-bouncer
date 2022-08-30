@@ -680,19 +680,6 @@ Bouncer::dontCache();
 
 This is particularly useful in unit tests, when you want to run assertions against roles/abilities that have just been granted.
 
-### Tables
-
-To change the database table names used by Bouncer, pass an associative array to the `tables` method. The keys should be Bouncer's default table names, and the values should be the table names you wish to use. You do not have to pass in all tables names; only the ones you wish to change.
-
-```php
-Bouncer::tables([
-    'abilities' => 'my_abilities',
-    'permissions' => 'granted_abilities',
-]);
-```
-
-Bouncer's published migration uses the table names from this configuration, so be sure to have these in place before actually running the migration.
-
 ### Custom models
 
 You can easily extend Bouncer's built-in `Role` and `Ability` models:

@@ -62,7 +62,7 @@ trait HasAbilities
         $relation = $this->morphToMany(
             Models::classname(Ability::class),
             'entity',
-            Models::table('permissions')
+            config('cortex.auth.tables.permissions')
         )->withPivot('forbidden', 'scope');
 
         return Models::scope()->applyToRelation($relation);

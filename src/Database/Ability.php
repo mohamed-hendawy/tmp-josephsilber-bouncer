@@ -33,7 +33,7 @@ class Ability extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $this->table = Models::table('abilities');
+        $this->table = config('cortex.auth.tables.abilities');
 
         parent::__construct($attributes);
     }

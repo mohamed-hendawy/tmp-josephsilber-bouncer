@@ -89,7 +89,7 @@ class CleanCommand extends Command
         $model = Models::ability();
 
         return $model->whereNotIn($model->getKeyName(), function ($query) {
-            $query->from(Models::table('permissions'))->select('ability_id');
+            $query->from(config('cortex.auth.tables.permissions'))->select('ability_id');
         });
     }
 

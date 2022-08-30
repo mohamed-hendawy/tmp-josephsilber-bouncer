@@ -76,36 +76,6 @@ class Models
     public static function setUsersModel($model)
     {
         static::$models[User::class] = $model;
-
-        static::$tables['users'] = static::user()->getTable();
-    }
-
-    /**
-     * Set custom table names.
-     *
-     * @param  array  $map
-     * @return void
-     */
-    public static function setTables(array $map)
-    {
-        static::$tables = array_merge(static::$tables, $map);
-
-        static::updateMorphMap();
-    }
-
-    /**
-     * Get a custom table name mapping for the given table.
-     *
-     * @param  string  $table
-     * @return string
-     */
-    public static function table($table)
-    {
-        if (isset(static::$tables[$table])) {
-            return static::$tables[$table];
-        }
-
-        return $table;
     }
 
     /**
@@ -266,7 +236,7 @@ class Models
             $connection->getPostProcessor()
         );
 
-        return $query->from(static::table($table));
+        return $query->from(config('cortex.auth.tables.'.$table));
     }
 
     /**
@@ -276,7 +246,7 @@ class Models
      */
     public static function reset()
     {
-        static::$models = static::$tables = static::$ownership = [];
+        static::$models = static::$ownership = [];
     }
 
     /**

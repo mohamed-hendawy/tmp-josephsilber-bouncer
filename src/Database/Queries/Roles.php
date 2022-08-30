@@ -64,8 +64,8 @@ class Roles
         $query->whereExists(function ($query) use ($model, $keys) {
             $table  = $model->getTable();
             $key    = "{$table}.{$model->getKeyName()}";
-            $pivot  = Models::table('assigned_roles');
-            $roles  = Models::table('roles');
+            $pivot  = config('cortex.auth.tables.assigned_roles');
+            $roles  = config('cortex.auth.tables.roles');
 
             $query->from($table)
                   ->join($pivot, $key, '=', $pivot.'.entity_id')
