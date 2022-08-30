@@ -29,7 +29,7 @@ class AssignsRoles
     /**
      * Assign the roles to the given authority.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|array|int  $authority
+     * @param  \Illuminate\Database\Eloquent\Model|array  $authority
      * @return bool
      */
     public function to($authority)

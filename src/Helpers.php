@@ -192,8 +192,6 @@ class Helpers
         foreach ($authorities as $authority) {
             if ($authority instanceof Model) {
                 $map[get_class($authority)][] = $authority->getKey();
-            } else {
-                $map[Models::classname(User::class)][] = $authority;
             }
         }
 
