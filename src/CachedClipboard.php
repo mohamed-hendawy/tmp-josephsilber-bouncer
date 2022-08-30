@@ -2,6 +2,7 @@
 
 namespace Silber\Bouncer;
 
+use Illuminate\Support\Str;
 use Silber\Bouncer\Database\Models;
 
 use Illuminate\Cache\TaggedCache;
@@ -294,8 +295,10 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
      */
     protected function refreshAllIteratively()
     {
-        foreach (app('cortex.auth.user')->all() as $user) {
-            $this->refreshFor($user);
+        foreach (collect(config('auth.providers'))->map(fn($value, $key) => app()->has($user = 'cortex.auth.'.Str::singular($key)) ? $user : null)->filter()->toArray() as $userType) {
+            foreach ($userType->all() as $user) {
+                $this->refreshFor($user);
+            }
         }
 
         foreach (app('cortex.auth.role')->all() as $role) {

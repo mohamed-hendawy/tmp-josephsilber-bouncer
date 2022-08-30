@@ -44,10 +44,11 @@ trait IsRole
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphedByMany
      */
-    public function users()
+    public function users(string $class)
     {
+        // @TODO: this only applies to members, what about admins, managers, ..etc?!
         $relation = $this->morphedByMany(
-            Models::classname(User::class),
+            $class,
             'entity',
             config('cortex.auth.tables.assigned_roles')
         )->withPivot('scope');

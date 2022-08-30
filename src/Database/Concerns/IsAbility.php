@@ -187,10 +187,10 @@ trait IsAbility
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function users()
+    public function users(string $class)
     {
         $relation = $this->morphedByMany(
-            Models::classname(User::class),
+            $class,
             'entity',
             config('cortex.auth.tables.permissions')
         )->withPivot('forbidden', 'scope');
