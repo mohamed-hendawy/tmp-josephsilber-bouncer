@@ -64,7 +64,7 @@ trait IsRole
      */
     public function assignTo($model, array $keys = null)
     {
-        list($model, $keys) = Helpers::extractModelAndKeys($model, $keys);
+        [$model, $keys] = Helpers::extractModelAndKeys($model, $keys);
 
         $query = $this->newBaseQueryBuilder()->from(config('cortex.auth.tables.assigned_roles'));
 
@@ -189,7 +189,7 @@ trait IsRole
      */
     public function retractFrom($model, array $keys = null)
     {
-        list($model, $keys) = Helpers::extractModelAndKeys($model, $keys);
+        [$model, $keys] = Helpers::extractModelAndKeys($model, $keys);
 
         $query = $this->newBaseQueryBuilder()
             ->from(config('cortex.auth.tables.assigned_roles'))

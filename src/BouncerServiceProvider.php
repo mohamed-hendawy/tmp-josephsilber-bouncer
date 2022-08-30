@@ -31,9 +31,6 @@ class BouncerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerMorphs();
-        $this->setUserModel();
-
         $this->registerAtGate();
 
         if ($this->app->runningInConsole()) {
@@ -68,17 +65,6 @@ class BouncerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Bouncer's models in the relation morph map.
-     *
-     * @return void
-     */
-    protected function registerMorphs()
-    {
-        // Rinvex - Disable this feature
-        // Models::updateMorphMap();
-    }
-
-    /**
      * Publish the package's middleware.
      *
      * @return void
@@ -110,45 +96,6 @@ class BouncerServiceProvider extends ServiceProvider
         $target = $this->app->databasePath().'/migrations/'.$timestamp.'_create_bouncer_tables.php';
 
         $this->publishes([$stub => $target], 'bouncer.migrations');
-    }
-
-    /**
-     * Set the classname of the user model to be used by Bouncer.
-     *
-     * @return void
-     */
-    protected function setUserModel()
-    {
-        if ($model = $this->getUserModel()) {
-            Models::setUsersModel($model);
-        }
-    }
-
-    /**
-     * Get the user model from the application's auth config.
-     *
-     * @return string|null
-     */
-    protected function getUserModel()
-    {
-        $config = $this->app->make('config');
-
-        if (is_null($guard = $config->get('auth.defaults.guard'))) {
-            return null;
-        }
-
-        if (is_null($provider = $config->get("auth.guards.{$guard}.provider"))) {
-            return null;
-        }
-
-        $model = $config->get("auth.providers.{$provider}.model");
-
-        // The standard auth config that ships with Laravel references the
-        // Eloquent User model in the above config path. However, users
-        // are free to reference anything there - so we check first.
-        if (is_subclass_of($model, EloquentModel::class)) {
-            return $model;
-        }
     }
 
     /**

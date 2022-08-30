@@ -249,6 +249,6 @@ class Scope implements ScopeContract
      */
     protected function isRoleClass($className)
     {
-        return Models::classname(Role::class) === $className;
+        return config('cortex.auth.models.role') === $className;
     }
 }

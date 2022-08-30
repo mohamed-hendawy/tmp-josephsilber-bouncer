@@ -59,8 +59,6 @@ abstract class BaseTestCase extends TestCase
 
         $this->migrate();
 
-        Models::setUsersModel(User::class);
-
         $this->registerClipboard();
     }
 

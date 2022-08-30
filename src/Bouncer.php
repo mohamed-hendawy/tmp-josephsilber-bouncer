@@ -480,45 +480,6 @@ class Bouncer
     }
 
     /**
-     * Set the model to be used for abilities.
-     *
-     * @param  string  $model
-     * @return $this
-     */
-    public function useAbilityModel($model)
-    {
-        Models::setAbilitiesModel($model);
-
-        return $this;
-    }
-
-    /**
-     * Set the model to be used for roles.
-     *
-     * @param  string  $model
-     * @return $this
-     */
-    public function useRoleModel($model)
-    {
-        Models::setRolesModel($model);
-
-        return $this;
-    }
-
-    /**
-     * Set the model to be used for users.
-     *
-     * @param  string  $model
-     * @return $this
-     */
-    public function useUserModel($model)
-    {
-        Models::setUsersModel($model);
-
-        return $this;
-    }
-
-    /**
      * Get the model scoping instance.
      *
      * @param  \Silber\Bouncer\Contracts\Scope|null  $scope

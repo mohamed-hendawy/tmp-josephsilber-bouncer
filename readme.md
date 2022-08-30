@@ -206,14 +206,6 @@ For more information about Laravel Facades, refer to [the Laravel documentation]
 
     Check out [the `Factory` class](https://github.com/JosephSilber/bouncer/blob/c974953a0b1d8d187023002cdfae1800f3ccdb02/src/Factory.php) to see all the customizations available.
 
-6) Set which model is used as the user model throughout your app:
-
-    ```php
-    $bouncer->useUserModel(User::class);
-    ```
-
-    For additional configuration, check out [the Configuration section](#configuration) below.
-
 ### Enabling cache
 
 By default, Bouncer's queries are cached for the current request. For better performance, you may want to [enable cross-request caching](#cache).
@@ -726,25 +718,6 @@ class MyRole extends Model
 
     // custom code
 }
-```
-
-If you use the traits instead of extending Bouncer's models, be sure to set the proper `$table` name and `$fillable` fields yourself.
-
-Regardless of which method you use, the next step is to actually tell Bouncer to use your custom models:
-
-```php
-Bouncer::useAbilityModel(MyAbility::class);
-Bouncer::useRoleModel(MyRole::class);
-```
-
-### User Model
-
-By default, Bouncer automatically [uses the user model of the default auth guard](https://github.com/JosephSilber/bouncer/blob/462f312/src/BouncerServiceProvider.php#L171-L190).
-
-If you're using Bouncer with a non-default guard, and it uses a different user model, you should let Bouncer know about the user model you want to use:
-
-```php
-Bouncer::useUserModel(\App\Admin::class);
 ```
 
 ### Ownership

@@ -59,7 +59,7 @@ trait HasRoles
     public function roles()
     {
         $relation = $this->morphToMany(
-            Models::classname(Role::class),
+            config('cortex.auth.models.role'),
             'entity',
             config('cortex.auth.tables.assigned_roles')
         )->withPivot('scope');

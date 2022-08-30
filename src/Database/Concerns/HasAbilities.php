@@ -60,7 +60,7 @@ trait HasAbilities
     public function abilities()
     {
         $relation = $this->morphToMany(
-            Models::classname(Ability::class),
+            config('cortex.auth.models.ability'),
             'entity',
             config('cortex.auth.tables.permissions')
         )->withPivot('forbidden', 'scope');

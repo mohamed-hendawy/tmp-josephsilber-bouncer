@@ -42,43 +42,6 @@ class Models
     protected static $scope;
 
     /**
-     * Set the model to be used for abilities.
-     *
-     * @param  string  $model
-     * @return void
-     */
-    public static function setAbilitiesModel($model)
-    {
-        static::$models[Ability::class] = $model;
-
-        static::updateMorphMap([$model]);
-    }
-
-    /**
-     * Set the model to be used for roles.
-     *
-     * @param  string  $model
-     * @return void
-     */
-    public static function setRolesModel($model)
-    {
-        static::$models[Role::class] = $model;
-
-        static::updateMorphMap([$model]);
-    }
-
-    /**
-     * Set the model to be used for users.
-     *
-     * @param  string  $model
-     * @return void
-     */
-    public static function setUsersModel($model)
-    {
-        static::$models[User::class] = $model;
-    }
-
-    /**
      * Get or set the model scoping instance.
      *
      * @param  \Silber\Bouncer\Contracts\Scope|null  $scope
@@ -110,24 +73,6 @@ class Models
         }
 
         return $model;
-    }
-
-    /**
-     * Update Eloquent's morph map with the Bouncer models and tables.
-     *
-     * @param  array|null  $classNames
-     * @return void
-     */
-    public static function updateMorphMap($classNames = null)
-    {
-        if (is_null($classNames)) {
-            $classNames = [
-                static::classname(Role::class),
-                static::classname(Ability::class),
-            ];
-        }
-
-        Relation::morphMap($classNames);
     }
 
     /**
@@ -224,7 +169,7 @@ class Models
      */
     public static function reset()
     {
-        static::$models = static::$ownership = [];
+        static::$ownership = [];
     }
 
     /**

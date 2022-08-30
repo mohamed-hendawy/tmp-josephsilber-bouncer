@@ -174,7 +174,7 @@ trait IsAbility
     public function roles()
     {
         $relation = $this->morphedByMany(
-            Models::classname(Role::class),
+            config('cortex.auth.models.role'),
             'entity',
             config('cortex.auth.tables.permissions')
         )->withPivot('forbidden', 'scope');
