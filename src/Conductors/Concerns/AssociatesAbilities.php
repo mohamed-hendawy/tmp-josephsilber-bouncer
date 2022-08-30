@@ -3,6 +3,7 @@
 namespace Silber\Bouncer\Conductors\Concerns;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\Database\Models;
 use Illuminate\Database\Eloquent\Model;
 
@@ -80,7 +81,7 @@ trait AssociatesAbilities
      */
     protected function getAbilityIdsAssociatedWithEveryone(array $abilityIds)
     {
-        $query = Models::query('permissions')
+        $query = DB::table('permissions')
             ->whereNull('entity_id')
             ->whereIn('ability_id', $abilityIds)
             ->where('forbidden', '=', $this->forbidding);
@@ -140,6 +141,6 @@ trait AssociatesAbilities
             return ['ability_id' => $id] + $attributes;
         }, $ids);
 
-        Models::query('permissions')->insert($records);
+        DB::table('permissions')->insert($records);
     }
 }

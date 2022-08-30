@@ -61,21 +61,6 @@ class Models
     }
 
     /**
-     * Get the classname mapping for the given model.
-     *
-     * @param  string  $model
-     * @return string
-     */
-    public static function classname($model)
-    {
-        if (isset(static::$models[$model])) {
-            return static::$models[$model];
-        }
-
-        return $model;
-    }
-
-    /**
      * Register an attribute/callback to determine if a model is owned by a given authority.
      *
      * @param  string|\Closure  $model
@@ -135,34 +120,6 @@ class Models
     }
 
     /**
-     * Get an instance of the user model.
-     *
-     * @param  array  $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public static function user(array $attributes = [])
-    {
-        return static::make(User::class, $attributes);
-    }
-
-    /**
-     * Get a new query builder instance.
-     *
-     * @param  string  $table
-     * @return \Illuminate\Database\Query\Builder
-     */
-    public static function query($table)
-    {
-        $query = new Builder(
-            $connection = static::user()->getConnection(),
-            $connection->getQueryGrammar(),
-            $connection->getPostProcessor()
-        );
-
-        return $query->from(config('cortex.auth.tables.'.$table));
-    }
-
-    /**
      * Reset all settings to their original state.
      *
      * @return void
@@ -170,20 +127,6 @@ class Models
     public static function reset()
     {
         static::$ownership = [];
-    }
-
-    /**
-     * Get an instance of the given model.
-     *
-     * @param  string  $model
-     * @param  array  $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    protected static function make($model, array $attributes = [])
-    {
-        $model = static::classname($model);
-
-        return new $model($attributes);
     }
 
     /**

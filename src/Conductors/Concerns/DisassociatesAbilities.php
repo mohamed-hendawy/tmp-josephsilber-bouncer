@@ -2,10 +2,10 @@
 
 namespace Silber\Bouncer\Conductors\Concerns;
 
+use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\Database\Models;
 use Silber\Bouncer\Database\Ability;
-
-use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -95,7 +95,7 @@ trait DisassociatesAbilities
      */
     protected function disassociateEveryone(array $ids)
     {
-        $query = Models::query('permissions')
+        $query = DB::table('permissions')
             ->whereNull('entity_id')
             ->where($this->constraints())
             ->whereIn('ability_id', $ids);

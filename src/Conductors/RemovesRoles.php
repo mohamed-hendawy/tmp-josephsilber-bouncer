@@ -4,6 +4,7 @@ namespace Silber\Bouncer\Conductors;
 
 use Silber\Bouncer\Helpers;
 use Silber\Bouncer\Database\Role;
+use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\Database\Models;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,7 +53,7 @@ class RemovesRoles
      */
     protected function getRoleIds()
     {
-        list($models, $names) = Helpers::partition($this->roles, function ($role) {
+        [$models, $names] = Helpers::partition($this->roles, function ($role) {
             return $role instanceof Model;
         });
 
@@ -134,6 +135,6 @@ class RemovesRoles
      */
     protected function newPivotTableQuery()
     {
-        return Models::query('assigned_roles');
+        return DB::table('assigned_roles');
     }
 }

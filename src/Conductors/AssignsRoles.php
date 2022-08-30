@@ -4,6 +4,7 @@ namespace Silber\Bouncer\Conductors;
 
 use Silber\Bouncer\Helpers;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\Database\Models;
 use Illuminate\Database\Eloquent\Model;
 
@@ -147,6 +148,6 @@ class AssignsRoles
      */
     protected function newPivotTableQuery()
     {
-        return Models::query('assigned_roles');
+        return DB::table('assigned_roles');
     }
 }
