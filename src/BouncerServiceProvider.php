@@ -21,7 +21,7 @@ class BouncerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerBouncer();
-        $this->registerCommands();
+        $this->commands(CleanCommand::class);
     }
 
     /**
@@ -52,16 +52,6 @@ class BouncerServiceProvider extends ServiceProvider
                 ->withGate($app->make(Gate::class))
                 ->create();
         });
-    }
-
-    /**
-     * Register Bouncer's commands with artisan.
-     *
-     * @return void
-     */
-    protected function registerCommands()
-    {
-        $this->commands(CleanCommand::class);
     }
 
     /**
