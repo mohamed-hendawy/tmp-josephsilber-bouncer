@@ -41,7 +41,7 @@
         "illuminate/events": "^9.0.0 || ^10.0.0",
         "larapack/dd": "^1.1",
         "mockery/mockery": "^1.5.0",
-        "phpunit/phpunit": "^9.5.0"
+        "phpunit/phpunit": "^10.1.0"
     },
     "suggest": {
         "illuminate/console": "Allows running the bouncer:clean artisan command",
