@@ -96,7 +96,7 @@ class RemovesRoles
     {
         $query = $this->newPivotTableQuery();
 
-        $morphType = (new $authorityClass)->getMorphClass();
+        $morphType = app($authorityClass)->getMorphClass();
 
         foreach ($roleIds as $roleId) {
             foreach ($authorityIds as $authorityId) {

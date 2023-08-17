@@ -185,6 +185,6 @@ class CleanCommand extends Command
     {
         $class = Relation::getMorphedModel($entityType) ?? $entityType;
 
-        return new $class;
+        return app($class);
     }
 }

@@ -39,7 +39,7 @@ class Helpers
     {
         if (! is_null($keys)) {
             if (is_string($model)) {
-                $model = new $model;
+                $model = app($model);
             }
 
             return [$model, $keys];

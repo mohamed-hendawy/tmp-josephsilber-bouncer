@@ -168,7 +168,7 @@ trait FindsAndCreatesAbilities
         }
 
         if ( ! $model instanceof Model) {
-            return new $model;
+            return app($model);
         }
 
         // Creating an ability for a non-existent model gives the authority that

@@ -168,7 +168,7 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
             return ["{$ability}-*", "*-*"];
         }
 
-        $model = $model instanceof Model ? $model : new $model;
+        $model = $model instanceof Model ? $model : app($model);
 
         $type = $model->getMorphClass();
 

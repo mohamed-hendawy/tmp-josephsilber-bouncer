@@ -60,7 +60,7 @@ class AssignsRoles
             return $model->getKey();
         });
 
-        $morphType = (new $authorityClass)->getMorphClass();
+        $morphType = app($authorityClass)->getMorphClass();
 
         $records = $this->buildAttachRecords($roleIds, $morphType, $authorityIds);
 

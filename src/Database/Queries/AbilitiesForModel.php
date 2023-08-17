@@ -37,7 +37,7 @@ class AbilitiesForModel
             return $this->constrainByWildcard($query);
         }
 
-        $model = is_string($model) ? new $model : $model;
+        $model = is_string($model) ? app($model) : $model;
 
         $this->constrainByModel($query, $model, $strict);
     }
