@@ -52,7 +52,7 @@ trait FindsAndCreatesAbilities
      */
     protected function getAbilityIdsFromMap(array $map, array $attributes)
     {
-        list($map, $list) = Helpers::partition($map, function ($value, $key) {
+        [$map, $list] = Helpers::partition($map, function ($value, $key) {
             return ! is_int($key);
         });
 
