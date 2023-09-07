@@ -179,6 +179,10 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
             "*-*",
         ];
 
+        if($ability == 'list'){
+            $abilities[] = "{$ability}-{$type}-owned";
+        }
+        
         if ($model->exists) {
             $abilities[] = "{$ability}-{$type}-{$model->getKey()}";
             $abilities[] = "*-{$type}-{$model->getKey()}";
